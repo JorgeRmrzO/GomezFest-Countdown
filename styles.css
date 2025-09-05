@@ -1,0 +1,280 @@
+/* GomezFest Countdown - Estilos principales */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(0,255,135,0.7) 0%, rgba(0,191,255,0.5) 60%, rgba(255,145,0,0.5) 100%), url('img/INVITACION_LUIS.png') center center/cover no-repeat fixed;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.93);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 255, 135, 0.08), 0 2px 8px rgba(0,191,255,0.08);
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+    backdrop-filter: blur(2.5px) brightness(1.05);
+}
+
+h1 {
+    color: #00bfff;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 300;
+    text-shadow: 0 2px 4px rgba(0, 255, 135, 0.12);
+}
+
+.countdown-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    background: #e6fff6;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 255, 135, 0.10);
+}
+
+iframe {
+    width: 100%;
+    height: 360px;
+    border: none;
+    display: block;
+}
+
+.share-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.share-text {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 135, 0.18);
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp {
+    background: #00ff87;
+    color: #222;
+}
+
+.facebook {
+    background: #00bfff;
+}
+
+.twitter {
+    background: #0091ea;
+}
+
+.copy-link {
+    background: #ff9100;
+}
+
+.copy-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #00ff87;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.copy-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilos específicos para elementos en línea */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 1/1;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,191,255,0.13), 0 1.5px 8px #00ff87;
+    margin-bottom: 18px;
+    object-fit: cover;
+    background: #fff;
+}
+
+.emoji-icons {
+    font-size: 4em;
+    margin-bottom: 10px;
+    color: #00ff87;
+    text-shadow: 0 2px 8px #ff9100;
+}
+
+.main-title {
+    color: #ff9100;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 1.2em;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.cta-box {
+    margin: 18px 0 0 0;
+    font-size: 1.1em;
+    color: #555;
+    background: #f7e8ff;
+    border-radius: 12px;
+    padding: 12px 18px;
+    display: inline-block;
+    box-shadow: 0 2px 8px rgba(118,75,162,0.08);
+}
+
+.cta-text {
+    color: #00bfff;
+}
+
+.cta-emojis {
+    font-size: 1.3em;
+    color: #ff9100;
+}
+
+.bottom-emojis {
+    margin: 30px 0 0 0;
+    font-size: 2.2em;
+    text-align: center;
+}
+
+.bottom-image {
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 3/5;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(255,145,0,0.13), 0 1px 6px #00bfff;
+    margin: 32px auto 0 auto;
+    object-fit: cover;
+    object-position: center 60%;
+    background: #fff;
+    display: block;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    body {
+        padding: 8px;
+    }
+    .container {
+        padding: 10px 4px;
+        margin: 4px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    h1 {
+        font-size: 1.3em;
+        margin-bottom: 18px;
+    }
+    .main-title {
+        font-size: 1.1em !important;
+    }
+    .countdown-wrapper {
+        max-width: 100vw;
+        border-radius: 10px;
+    }
+    iframe {
+        height: 160px;
+        min-height: 120px;
+    }
+    .features-list {
+        font-size: 0.98em !important;
+    }
+    .share-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .share-btn {
+        width: 100%;
+        font-size: 1em;
+        padding: 10px 0;
+    }
+    .copy-notification {
+        top: 8px;
+        right: 8px;
+        padding: 8px 12px;
+        font-size: 0.95em;
+    }
+    .emoji-icons {
+        font-size: 2em !important;
+    }
+    .bottom-emojis {
+        font-size: 1.2em !important;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1em;
+    }
+    .main-title {
+        font-size: 0.95em !important;
+    }
+    .container {
+        padding: 4px 1px;
+    }
+    iframe {
+        height: 90px;
+    }
+    .features-list {
+        font-size: 0.9em !important;
+    }
+}
