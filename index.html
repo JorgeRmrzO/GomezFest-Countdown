@@ -10,6 +10,29 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Audio de fondo -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="audio/cumbia_ruana.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- Overlay sutil para activar audio -->
+    <div id="audioOverlay" class="audio-overlay">
+        <div class="audio-overlay-content">
+            <div class="cumbia-icon">🎵</div>
+            <p>Toca para activar la cumbia</p>
+        </div>
+    </div>
+
+    <!-- Botón para controlar el audio -->
+    <button id="audioToggle" class="audio-control" style="display: none;">
+        <span id="audioIcon">🔊</span>
+    </button>
+
+    <!-- Botón para controlar el audio -->
+    <button id="audioToggle" class="audio-control" style="display: none;">
+        <span id="audioIcon">🔊</span>
+    </button>
     <div class="container">
 
         <h1>🎯 GomezFest - Cuenta Regresiva</h1>
@@ -69,6 +92,121 @@
     
     <script>
         const currentUrl = window.location.href;
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const audioToggle = document.getElementById('audioToggle');
+        const audioIcon = document.getElementById('audioIcon');
+        const audioOverlay = document.getElementById('audioOverlay');
+
+        // Configurar volumen inicial para fade-in suave
+        backgroundMusic.volume = 0;
+        let targetVolume = 0.5;
+        let isPlaying = false;
+
+        // Función para fade in del audio
+        function fadeInAudio() {
+            if (backgroundMusic.volume < targetVolume) {
+                backgroundMusic.volume = Math.min(backgroundMusic.volume + 0.05, targetVolume);
+                requestAnimationFrame(fadeInAudio);
+            }
+        }
+
+        // Función para fade out del audio
+        function fadeOutAudio() {
+            if (backgroundMusic.volume > 0) {
+                backgroundMusic.volume = Math.max(backgroundMusic.volume - 0.05, 0);
+                requestAnimationFrame(fadeOutAudio);
+            } else {
+                backgroundMusic.pause();
+            }
+        }
+
+        // Activar audio con cualquier interacción
+        function activateAudio() {
+            if (!isPlaying) {
+                backgroundMusic.play().then(() => {
+                    fadeInAudio();
+                    audioOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        audioOverlay.style.display = 'none';
+                        audioToggle.style.display = 'flex';
+                    }, 300);
+                    isPlaying = true;
+                }).catch(() => {
+                    // Silenciosamente manejar errores
+                    console.log('Audio no pudo reproducirse automáticamente');
+                });
+            }
+        }
+
+        // Eventos para activar audio
+        audioOverlay.addEventListener('click', activateAudio);
+        document.addEventListener('click', activateAudio, { once: true });
+        document.addEventListener('keydown', activateAudio, { once: true });
+        document.addEventListener('touchstart', activateAudio, { once: true });
+
+        // Control manual del audio
+        audioToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().then(() => {
+                    fadeInAudio();
+                    audioIcon.textContent = '🔊';
+                    isPlaying = true;
+                }).catch(e => console.log('Error:', e));
+            } else {
+                fadeOutAudio();
+                audioIcon.textContent = '🔇';
+                isPlaying = false;
+            }
+        });
+
+        // Intentar auto-reproducir inmediatamente
+        document.addEventListener('DOMContentLoaded', function() {
+            backgroundMusic.load();
+            
+            // Intentar reproducir sin interacción (funcionará en algunos casos)
+            const playPromise = backgroundMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    fadeInAudio();
+                    audioOverlay.style.display = 'none';
+                    audioToggle.style.display = 'flex';
+                    isPlaying = true;
+                }).catch(() => {
+                    // Si falla, mostrar overlay sutil
+                    audioOverlay.style.display = 'flex';
+                });
+            }
+        });
+
+        // Configurar volumen inicial
+        backgroundMusic.volume = 0.5;
+
+        // Control manual del audio
+        audioToggle.addEventListener('click', function() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().then(() => {
+                    audioIcon.textContent = '🔊';
+                }).catch(e => console.log('Error al reproducir audio:', e));
+            } else {
+                backgroundMusic.pause();
+                audioIcon.textContent = '🔇';
+            }
+        });
+
+        // Intentar auto-reproducir (funcionará solo en algunos casos)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Precargar el audio en segundo plano
+            backgroundMusic.load();
+            
+            backgroundMusic.play().then(() => {
+                audioOverlay.style.display = 'none';
+                audioToggle.style.display = 'flex';
+            }).catch(() => {
+                // Si falla, mostrar el overlay
+                audioOverlay.style.display = 'flex';
+            });
+        });
         
         function shareWhatsApp() {
             const text = "¡Mira este temporizador de cuenta regresiva!";
